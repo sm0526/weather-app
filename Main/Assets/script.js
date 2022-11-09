@@ -12,3 +12,15 @@ let searchHistory = document.querySelector('#history');
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 //functions to display results, history, and to update history
+function showSearchHistory() {
+    searchHistory.innerHTML = '';
+    for (let i = history.length -1; i >= 0; i--) {
+        let button = document.createElement('button');
+        button.setAttribute('type', 'button');
+        button.setAttribute('aria-controls', 'today forecast');
+        button.classList.add('history-button', 'button-history');
+        button.setAttribute('data-search', history[i]);
+        button.textContent = history[i];
+        searchHistory.append(button);
+    }
+}
