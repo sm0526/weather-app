@@ -73,3 +73,34 @@ function showCurrentWeather(city, weather, timezone){
     today.innerHTML = '';
     today.append(card);
 }
+function showForecastCard(forecast, timezone) {
+    let unixTs = forecast.dt;
+    let tempF = forecast.temp.day;
+    let { humidity } = forecast;
+    let windMph = forecast.wind_speed;
+    //dom variables to create the card
+    let col = document.createElement('div');
+    let card = document.createElement('div');
+    let cardBody = document.createElement('div');
+    let cardTitle = document.createElement('h4');
+    let tempFEl = document.createElement('p');
+    let windMphEl = document.createElement('p');
+    let humidityEl = document.createElement('p');
+    col.append(card);
+    card.append(cardBody);
+    cardBody.append(cardTitle, tempFEl, windMphEl, humidityEl);
+    //setting class' for card
+    col.setAttribute('class', 'col-md');
+    col.classList.add('five-day-card');
+    card.setAttribute('class', 'card bg-primary h-100 text-white');
+    cardBody.setAttribute('class', 'card-body p-2');
+    cardTitle.setAttribute('class', 'card-title');
+    tempFEl.setAttribute('class', 'card-text');
+    windMphEl.setAttribute('class', 'card-text');
+    humidityEl.setAttribute('class', 'card-text');
+    cardTitle.textContent = dayjs.unix(unixTs).tz(timezone).format('M/D/YYYY');
+    tempFEl.textContent = `Temperature: ${tempF}°F`;
+    windMphEl.textContent = `Wind Speed: ${windMph} MPH`;
+    humidityEl.textContent = `Humidity: ${humidity} %`;
+    forecast.append(col);
+}
