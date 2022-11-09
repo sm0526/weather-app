@@ -9,8 +9,8 @@ let today = document.querySelector('#today');
 let forecast = document.querySelector('#forecast');
 let searchHistory = document.querySelector('#history');
 //dayjs
-dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
+dayjs.extend(window.dayjs_plugin_utc);
 //functions to display results, history, and to update history
 function showSearchHistory() {
     searchHistory.innerHTML = '';
@@ -23,4 +23,19 @@ function showSearchHistory() {
         button.textContent = history[i];
         searchHistory.append(button);
     }
+}
+function appendToHistory(search) {
+    if (history.indexOf(search) !== -1) {
+        return;
+    }
+    history.push(search);
+    localStorage.setItem('search-history', JSON.stringify(history));
+    showSearchHistory();
+}
+function initSearchHistory() {
+    let storedHistory = localStorage.getItem('search-history');
+    if (storedHistory) {
+        history = JSON.parse(storedHistory);
+    }
+    showSearchHistory();
 }
