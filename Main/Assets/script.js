@@ -120,3 +120,23 @@ function showForecast(dailyForecast, timezone) {
         }
     }
 }
+function showItems(city, data) {
+    showCurrentWeather(city, data.current, data.timezone);
+    showForecast(data.daily, data.timezone);
+}
+function fetchWeather(location) {
+    let { lat } = location;
+    let { lon } = location;
+    let city = location.name;
+    let apiUrl =`${weatherApiRootUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;
+    fetch(apiUrl)
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (data) {
+            showItems(city, data);
+        })
+        .catch(function (err) {
+            console.error(err);
+        })
+}
