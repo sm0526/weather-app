@@ -104,3 +104,19 @@ function showForecastCard(forecast, timezone) {
     humidityEl.textContent = `Humidity: ${humidity} %`;
     forecast.append(col);
 }
+function showForecast(dailyForecast, timezone) {
+    let startDate = dayjs().tz(timezone).add(1, 'day').startOf('day').unix();
+    let endDate = dayjs().tz(timezone).add(6, 'day').startOf('day').unix();
+    let headingCol = document.createElement('div');
+    let heading = document.createElement('h4');
+    headingCol.setAttribute('class', 'col-12');
+    heading.textContent = 'Five Day Forecast:';
+    headingCol.append(heading);
+    forecast.innerHTML = '';
+    forecast.append(headingCol);
+    for (let i = 0; i < dailyForecast.length; i++) {
+        if (dailyForecast[i].dt >= startDate && dailyForecast[i].dt < endDate) {
+            showForecastCard(dailyForecast[i], timezone);
+        }
+    }
+}
