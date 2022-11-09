@@ -39,3 +39,37 @@ function initSearchHistory() {
     }
     showSearchHistory();
 }
+function showCurrentWeather(city, weather, timezone){
+    let date = dayjs().tz(timezone).format('M/D/YYYY');
+    let temp = weather.temp;
+    let windMph = weather.wind_speed;
+    let uvi = weather.uvi;
+    let humidity = weather.humidity;
+    //creating dom elements to show data
+    let card = document.createElement('div');
+    let cardBody = document.createElement('div');
+    let heading = document.createElement('h3');
+    let tempEl = document.createElement('p');
+    let windMphEl = document.createElement('p');
+    let uviEl = document.createElement('p');
+    let humidityEl = document.createElement('p');
+    //outline
+    card.setAttribute('class', 'card');
+    cardBody.setAttribute('class', 'card-body');
+    card.append(cardBody);
+    //data
+    heading.setAttribute('class', 'h3 card-title');
+    tempEl.setAttribute('class', 'card-text');
+    windMphEl.setAttribute('class', 'card-text');
+    uviEl.setAttribute('class', 'card-text');
+    humidityEl.setAttribute('class', 'card-text');
+    //content
+    heading.textContent = `${city} (${date})`;
+    tempEl.textContent = `Temperature: ${temp}°F`;
+    windMphEl.textContent = `Wind Speed: ${windMph} MPH`;
+    uviEl.textContent = `UV Index: ${uvi}`;
+    humidityEl.textContent = `Humidity: ${humidity} %`;
+    cardBody.append(heading, tempEl, windMphEl, uviEl, humidityEl);
+    today.innerHTML = '';
+    today.append(card);
+}
