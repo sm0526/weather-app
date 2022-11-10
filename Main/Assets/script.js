@@ -158,3 +158,12 @@ function fetchCoordinates(search) {
             console.error(err);
         })
 }
+function searchFormSubmit(e) {
+    if (!searchInput.value) {
+        return;
+    }
+    e.preventDefault();
+    let search = searchInput.value.trim();
+    fetchCoordinates(search);
+    searchInput.value = '';
+}
