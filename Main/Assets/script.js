@@ -1,5 +1,5 @@
 //global variables
-const weatherApiRootUrl = 'https://api.openweathermap.org';
+const weatherApiRootUrl = 'https://api.openweathermap.org/forecast5';
 const weatherApiKey = 'ac50d784bf914987a46bfec9b1157873';
 let history = [];
 //DOM element variables
@@ -9,8 +9,8 @@ let today = document.querySelector('#today');
 let forecast = document.querySelector('#forecast');
 let searchHistory = document.querySelector('#history');
 //dayjs
-dayjs.extend(window.dayjs_plugin_timezone);
-dayjs.extend(window.dayjs_plugin_utc);
+//dayjs.extend(window.dayjs_plugin_timezone);
+//dayjs.extend(window.dayjs_plugin_utc);
 //functions to display results, history, and to update history
 function showSearchHistory() {
     searchHistory.innerHTML = '';
@@ -128,7 +128,7 @@ function fetchWeather(location) {
     let { lat } = location;
     let { lon } = location;
     let city = location.name;
-    let apiUrl =`${weatherApiRootUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;
+    let apiUrl =`${weatherApiRootUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`;
     fetch(apiUrl)
         .then(function (res) {
             return res.json();
@@ -167,3 +167,15 @@ function searchFormSubmit(e) {
     fetchCoordinates(search);
     searchInput.value = '';
 }
+function searchHistoryClick(e) {
+    if (!e.target.matches('.btn-history')) {
+        return;
+    }
+    let button = e.target;
+    let search = button.getAttribute('data-search');
+    fetchCoordinates(search);
+}
+
+showSearchHistory();
+searchForm.addEventListener('submit', searchFormSubmit);
+searchHistory.addEventListener('click', searchHistoryClick);
