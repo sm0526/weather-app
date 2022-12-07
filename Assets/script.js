@@ -105,8 +105,8 @@ function showForecastCard(forecast, timezone) {
     forecast.append(col);
 }
 function showForecast(dailyForecast, timezone) {
-    let startDate = dayjs().tz(timezone).add(1, 'day').startOf('day').unix();
-    let endDate = dayjs().tz(timezone).add(6, 'day').startOf('day').unix();
+    let startDate = dayjs.unix().tz(timezone).add(1, 'day').startOf('day').unix();
+    let endDate = dayjs.unix().tz(timezone).add(6, 'day').startOf('day').unix();
     let headingCol = document.createElement('div');
     let heading = document.createElement('h4');
     headingCol.setAttribute('class', 'col-12');
